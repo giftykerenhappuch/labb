@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const path = require('path'); // Don't forget to import 'path' for handling static file directories.
 
 // MongoDB URI (use environment variables for sensitive data)
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://giftykerenhappuchcug22it:7DbjIs9c0WCoqGt8@lab.a5ahi.mongodb.net/';
@@ -15,7 +16,12 @@ mongoose.connect(MONGO_URI, {
   .catch(err => console.log('MongoDB connection error:', err));
 
 const app = express();
-const PORT = 3000;
+
+// Correct PORT definition
+const PORT = process.env.PORT || 3000;
+
+// Serve static files (e.g., HTML, CSS, JS)
+app.use(express.static(path.join(__dirname, 'public')));  // Serve static files from the "public" directory
 
 // Use middleware to parse JSON and handle CORS
 app.use(bodyParser.json());
