@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <style>
+        /* Basic reset for margin, padding, and box-sizing */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body background and font settings */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 40px;
+        }
+
+        /* Container for centering the form */
+        .container {
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f0e8e8;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Heading for the form */
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 1.6rem;
+            color: #555;
+        }
+
+        /* Form group styling */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* Input fields */
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #ece0e0;
+            color: #333;
+        }
+
+        .form-group input:focus {
+            border-color: #5f5b5d;
+            background-color: #e9f0ff;
+        }
+
+        /* Submit button styling */
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #5f5b5d;
+            color: white;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5f5b5d;
+        }
+
+        /* Alert styling for error and success messages */
+        .alert {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f44336;
+            color: white;
+            border-radius: 5px;
+            font-size: 0.9rem;
+            text-align: center;
+            display: none; /* Hidden by default */
+        }
+
+        /* Success alert */
+        .alert.success {
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="registrationForm" onsubmit="handleRegistration(event)">
+            <h2>Registration Form</h2>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" placeholder="Enter your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="roll">Roll Number</label>
+                <input type="text" id="roll" placeholder="Enter your roll number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" placeholder="Enter your email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Mobile Number</label>
+                <input type="tel" id="phone" placeholder="Enter your phone number" required>
+            </div>
+
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        async function handleRegistration(event) {
+            async function selectLab(lab, department) {
+    const name = 'user';  // Replace with a real way of getting the user's name (e.g., session, or localStorage)
+    const key = `${lab}-${department}`;
+    const button = document.querySelector(`#${key}`);
+    const response = await fetch('http://localhost:3000/select-lab', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, lab, department }),
+    });
+    const data = await response.json();
+
+    if (response.ok) {
+        document.getElementById(key).textContent = data.remainingSeats;
+        alert(data.message);
+        document.getElementById('result').textContent = `You belong to ${lab.charAt(0).toUpperCase() + lab.slice(1)} Lab (${department.toUpperCase()}).`;
+    } else {
+        alert(data.message);
+    }
+}
+
+}
+
+    </script>
+</body>
+</html>

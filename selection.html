@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('background.jpg');
+            background-size: cover;
+            color: white;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+
+        form {
+            width: 500px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        form h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form id="labForm" onsubmit="handleLabForm(event)">
+            <h2>Lab Selection</h2>
+
+
+            <div class="form-group">
+                <label for="department">Select Department</label>
+                <select id="department" required>
+                    <option value="" disabled selected>Select a department</option>
+                    <option value="it">IT</option>
+                    <option value="cse">CSE</option>
+                    <option value="aids">AIDS</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Skills</label>
+                <input type="checkbox" id="ai" value="AI"> AI<br>
+                <input type="checkbox" id="python" value="Python"> Python<br>
+                <input type="checkbox" id="java" value="Java"> Java<br>
+                <input type="checkbox" id="c" value="C"> C<br>
+                <input type="checkbox" id="otherSkill" value="Other"> Other<br>
+            </div>
+
+            <div class="form-group">
+                <label for="resume">Upload Resume</label>
+                <input type="file" id="resume" accept=".pdf,.docx" required>
+            </div>
+
+            <button type="submit" class="btn" onclick="window.location.href='next.html'">Submit</button>
+        </form>
+    </div>
+
+
+</body>
+</html>

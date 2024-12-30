@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab Selection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        .lab {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            width: 300px;
+        }
+        .lab h2 {
+            margin: 10px 0;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 15px;
+        }
+        .buttons button {
+            padding: 10px;
+            margin: 5px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #result {
+            margin-top: 30px;
+            font-size: 18px;
+            font-weight: bold;
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1>Lab Selection</h1>
+    <div class="container">
+        <div class="lab">
+            <h2>Ideation Lab</h2>
+            <div class="buttons">
+                <button onclick="selectLab('ideation', 'cse')">CSE (<span id="ideation-cse">4</span>)</button>
+                <button onclick="selectLab('ideation', 'aids')">AIDS (<span id="ideation-aids">4</span>)</button>
+                <button onclick="selectLab('ideation', 'it')">IT (<span id="ideation-it">4</span>)</button>
+            </div>
+        </div>
+        <div class="lab">
+            <h2>Mobile Lab</h2>
+            <div class="buttons">
+                <button onclick="selectLab('mobile', 'cse')">CSE (<span id="mobile-cse">4</span>)</button>
+                <button onclick="selectLab('mobile', 'aids')">AIDS (<span id="mobile-aids">4</span>)</button>
+                <button onclick="selectLab('mobile', 'it')">IT (<span id="mobile-it">4</span>)</button>
+            </div>
+        </div>
+        <div class="lab">
+            <h2>IoT Lab</h2>
+            <div class="buttons">
+                <button onclick="selectLab('iot', 'cse')">CSE (<span id="iot-cse">4</span>)</button>
+                <button onclick="selectLab('iot', 'aids')">AIDS (<span id="iot-aids">4</span>)</button>
+                <button onclick="selectLab('iot', 'it')">IT (<span id="iot-it">4</span>)</button>
+            </div>
+        </div>
+    </div>
+    <div id="result"></div>
+    <script>
+        async function selectLab(lab, department) {
+            const key = `${lab}-${department}`;
+            const button = document.querySelector(`#${key}`);
+            const response = await fetch('http://localhost:3000/select-lab', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ lab, department }),
+            });
+            const data = await response.json();
+
+            if (response.ok) {
+                document.getElementById(key).textContent = data.remainingSeats;
+                alert(data.message);
+                document.getElementById('result').textContent = `You belong to ${lab.charAt(0).toUpperCase() + lab.slice(1)} Lab (${department.toUpperCase()}).`;
+            } else {
+                alert(data.message);
+            }
+        }
+    </script>
+</body>
+</html>
