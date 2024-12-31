@@ -132,28 +132,30 @@
 
     <script>
         async function handleRegistration(event) {
-            async function selectLab(lab, department) {
-    const name = 'user';  // Replace with a real way of getting the user's name (e.g., session, or localStorage)
-    const key = `${lab}-${department}`;
-    const button = document.querySelector(`#${key}`);
-    const response = await fetch('http://localhost:3000/select-lab', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, lab, department }),
-    });
-    const data = await response.json();
+            event.preventDefault(); // Prevent default form submission
+            const name = document.getElementById('name').value;
+            const roll = document.getElementById('roll').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
 
-    if (response.ok) {
-        document.getElementById(key).textContent = data.remainingSeats;
-        alert(data.message);
-        document.getElementById('result').textContent = `You belong to ${lab.charAt(0).toUpperCase() + lab.slice(1)} Lab (${department.toUpperCase()}).`;
-    } else {
-        alert(data.message);
-    }
-}
+            try {
+                const response = await fetch('http://localhost:3000/register', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, roll, email, phone }),
+                });
+                const data = await response.json();
 
-}
-
+                if (response.ok) {
+                    alert(data.message || "Registration successful!");
+                    window.location.href = 'selection.html'; // Redirect to selection.html
+                } else {
+                    alert(data.message || "Something went wrong. Please try again.");
+                }
+            } catch (error) {
+                console.error("Error during registration:", error);
+                alert("There was a problem with the registration. Please check your connection and try again.");
+            }
+        }
     </script>
 </body>
-</html>
