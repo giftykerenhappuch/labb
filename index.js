@@ -3,7 +3,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path'); // Don't forget to import 'path' for handling static file directories.
-app.use(cors());
+
 
 // MongoDB URI (use environment variables for sensitive data)
 const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://giftykerenhappuchcug22it:7DbjIs9c0WCoqGt8@lab.a5ahi.mongodb.net/';
