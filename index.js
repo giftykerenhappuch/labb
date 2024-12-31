@@ -63,6 +63,8 @@ let seats = {
 app.post('/register', async (req, res) => {
   const { name, roll, email, phone } = req.body;
 
+    // Handle registration logic here
+    res.json({ message: 'Registration successful' });
   // Validate email
   if (!email.endsWith('@francisxavier.ac.in')) {
     return res.status(400).json({ message: 'Please use a valid francisxavier.ac.in email address.' });
