@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const path = require('path'); // Required for handling static files
 
 // MongoDB URI
-const MONGO_URI = process.env.MONGO_URI || 'your_mongo_connection_string';
+const MONGO_URI = process.env.MONGO_URI || 'mongodb+srv://giftykerenhappuchcug22it:7DbjIs9c0WCoqGt8@lab.a5ahi.mongodb.net/';
 
 // Connect to MongoDB
 mongoose.connect(MONGO_URI, {
